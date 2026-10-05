@@ -174,13 +174,10 @@ Priorités selon la méthode MoSCoW : **M** = Must (indispensable), **S** = Shou
                                             └──────────────────┘
 ```
 
-- **Front :** application mobile multiplateforme (technologie _à choisir et justifier_).
-- **Back-end :** API REST (technologie _à choisir et justifier_).
+- **Front :** application mobile multiplateforme  (technologie _à choisir **React Native**).
+- **Back-end :** API REST (technologie **Spring** ).
 - **Données :** base de données pour les comptes et les installations. Production et consommation simulées.
 - **Hébergement :** service cloud envisagé, prestataire et coût **[À valider PO]**.
-
-Les choix techniques seront justifiés dans un document séparé.
-
 ---
 
 ## 7. Contraintes
@@ -199,14 +196,14 @@ Les choix techniques seront justifiés dans un document séparé.
 - Connexion à de vrais équipements (onduleurs, compteurs Linky).
 - Vente, paiement ou devis en ligne.
 - Gestion commerciale interne de l'entreprise (CRM, facturation).
-- Application web ou desktop **[À valider PO]**.
+- Application desktop **[À valider PO]**.
 
 ---
 
 ## 9. Livrables
 
 - Code source de l'application mobile et de l'API, avec tests.
-- Documentation technique et utilisateur.
+- Documentation technique et utilisateur en anglais.
 - Cahier des charges (ce document) et justification des choix techniques.
 - Artefacts Scrum : backlog, sprints, estimations, comptes rendus de réunions.
 - Présentation finale : démo et rétrospective.
@@ -215,19 +212,10 @@ Les choix techniques seront justifiés dans un document séparé.
 
 ## 10. Questions ouvertes pour le PO
 
-1. **Cloud :** quel prestataire, et qui prend en charge le coût ?
+1. **Cloud :** quel prestataire, et qui prend en charge le coût (budget max / mois ) ?
 2. **Météo :** données récupérées automatiquement via une API, saisies par l'utilisateur, ou les deux ?
 3. **Consommation :** d'où viennent les données (compteur, saisie manuelle, simulation) ?
-4. **Plateformes :** Android, iOS ou les deux ?
 5. **Types de panneaux :** lesquels doivent être pris en charge ?
 6. **Utilisateurs :** l'application s'adresse-t-elle aussi aux prospects et aux conseillers de l'entreprise ?
 7. **Revente :** faut-il gérer la revente du surplus d'électricité (tarif de rachat) dans le calcul des économies ?
 8. **Multi-installations :** un client peut-il avoir plusieurs installations ?
-
----
-
-## Historique des versions
-
-| Version | Date | Auteur | Modifications |
-|---|---|---|---|
-| 0.1 | 05/10/2026 | _à compléter_ | Ébauche initiale à partir du compte rendu n°1 |
