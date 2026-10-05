@@ -4,8 +4,8 @@
 - **UCE :** Processus du développement logiciel (Master ILSEN, S1)
 - **Date :** 05/10/2026
 - **Type :** Réunion de lancement avec le Product Owner
-- **Participants :** Product Owner, équipe projet : _à compléter_
-- **Rédacteur :** _à compléter_
+- **Participants :** Product Owner, équipe projet  
+- **Rédacteur :** Theo
 
 ---
 
