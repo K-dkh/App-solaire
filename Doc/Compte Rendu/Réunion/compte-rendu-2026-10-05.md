@@ -2,10 +2,10 @@
 
 - **Projet :** App-solaire, application de calcul de rendement solaire
 - **UCE :** Processus du développement logiciel (Master ILSEN, S1)
-- **Date :** 05/10/2026
+- **Date :** 17/09/2026
 - **Type :** Réunion de lancement avec le Product Owner
-- **Participants :** Product Owner, équipe projet  
-- **Rédacteur :** Theo
+- **Participants :** Product Owner, équipe projet: Teo, Malikath, Dede, Sheinez
+- **Rédacteur :** Teo
 
 ---
 
