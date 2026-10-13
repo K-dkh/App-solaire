@@ -5,7 +5,7 @@
 - **Version :** 0.1 (ébauche)
 - **Date :** 05/10/2026
 - **Statut :** Brouillon, à valider avec le Product Owner
-- **Auteurs :** _à compléter_
+- **Auteurs :** Equipe Dev
 
 > Les éléments marqués **[À valider PO]** sont des hypothèses de l'équipe qui doivent être confirmées lors d'une prochaine réunion.
 
