@@ -19,9 +19,9 @@
 **Livrables associés :**
  
 - Justification des choix : [ADR-App-solaire.md](ADR-App-solaire.md)
-- Cahier des charges : [cahier-des-charges.md](cahier-des-charges.md)
+- Cahier des charges : [cahier-des-charges.md](https://github.com/K-dkh/App-solaire/blob/main/Doc/CahierDesCharges/cahier-des-charges.md)
 - Liste des fonctionnalités (v0.3, 30 fonctionnalités, 283,5 h estimées) : liste-des-fonctionnalites.md
-- Backlog : GitHub Projects <!-- lien du board à compléter -->
+- Backlog : GitHub Projects 
 ## 2. Décisions prises
  
 | Sujet | Décision | Justification |
@@ -43,7 +43,7 @@
  
 ## 4. Budget
  
-- Hypothèse retenue : **moyenne de 40 /h** <!-- unité et devise à confirmer avec le PO -->.
+- Hypothèse retenue : **moyenne de 40 /h** 
 | Périmètre | Charge | Coût à 40 /h |
 |---|---|---|
 | MVP (fonctionnalités M) | 115,5 h | 4 620 |
@@ -72,6 +72,7 @@ Ces points restent ouverts pour la prochaine réunion.
 - **Consommation :** compteur, saisie manuelle ou simulation ? (FCT-40)
 - **Types de panneaux** à prendre en charge ? (FCT-11, FCT-51)
 - **Budget :** le taux de 40 /h est-il bien en euros par heure, et y a-t-il un plafond ?
+
 ## 7. Prochaines étapes
  
 - [ ] Désigner le Scrum Master
