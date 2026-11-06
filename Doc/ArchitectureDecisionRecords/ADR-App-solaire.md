@@ -72,20 +72,25 @@ Un ADR (Architecture Decision Record) documente une décision importante : le co
 
 ---
 
-## ADR-004 : Stratégie de branches `main` / `develop`
+## ADR-004 : Stratégie de branches `main` / `Front`, `api`, `back`
 
-- **Statut :** Accepté
+- **Statut :** Accepté, révisé le 06/11/2026
 - **Date :** 05/10/2026
 
-**Contexte.** Quatre personnes travaillent en parallèle sur l'API, le mobile et la documentation.
+**Contexte.** Quatre personnes travaillent en parallèle sur l'API, l'application et la documentation.
 
-**Décision.** `main` contient la version stable et démontrable ; `develop` sert d'intégration. Le travail se fait sur des branches par fonctionnalité fusionnées dans `develop`. Commentaires de code et messages de commit en **anglais**.
+**Décision.** `main` contient la version stable et démontrable. Le travail se fait sur une branche par partie (`Front`, `api`, `back`), fusionnée dans `main` par pull request. Commentaires de code et messages de commit en **anglais**.
 
 **Justification.**
 - La démo au PO se fait toujours depuis une version stable (`main`).
-- Les conflits sont limités en isolant chaque fonctionnalité.
+- Les conflits sont limités en isolant chaque partie du projet.
+- Sans `develop`, il y a une seule étape de fusion avant `main`.
 
-**Alternatives écartées.** Travail direct sur `main` : risqué pour la démo.
+**Alternatives écartées.**
+- Travail direct sur `main` : risqué pour la démo.
+- Branche d'intégration `develop` (décision initiale du 05/10/2026) : abandonnée le 06/11/2026 ([PR #34](https://github.com/K-dkh/App-solaire/pull/34)).
+
+**Conséquences.** Chaque branche doit récupérer `main` régulièrement pour limiter les conflits.
 
 
 ---
@@ -113,7 +118,7 @@ Un ADR (Architecture Decision Record) documente une décision importante : le co
 
 ## ADR-006 : Données clients chiffrées sur l'appareil du client, API sans données clients
 
-- **Statut :** Proposé par le PO et validé
+- **Statut :** Proposé. Le PO a confirmé le principe (données accessibles uniquement au client), mais le stockage local reste une proposition de l'équipe, à confirmer selon sa réponse sur le multi-appareil
 - **Date :** 13/10/2026
 
 **Contexte.** Le PO demande que les données des clients soient chiffrées avec une clé et que l'entreprise ne les gère pas, pour ne pas augmenter le coût pour les clients. Le plan présenté prévoyait des comptes et des installations stockés par l'API.
@@ -128,6 +133,14 @@ Un ADR (Architecture Decision Record) documente une décision importante : le co
 **Alternatives écartées.**
 - Comptes et données sur serveur, chiffrés par l'API (plan initial) : permet le multi-appareil, mais l'entreprise détient les données et la clé et doit les héberger. À reprendre si le PO accepte que l'API stocke des données chiffrées.
 - Serveur avec chiffrement côté client : complexe, hébergement nécessaire, calculs côté API difficiles.
+
+**Conséquences.**
+- Code oublié et clé de récupération perdue : les données sont perdues.
+- Pas de « mot de passe oublié » par e-mail (FCT-03).
+- Changement d'appareil par export chiffré (FCT-06) puis import, sans synchronisation automatique.
+- FCT-01 et FCT-02 (Sprint 1) sont à réécrire si cette proposition est confirmée, et l'ADR-005 à réviser.
+
+**Reste à décider.** Si le PO demande que le client retrouve ses données sur plusieurs appareils, il faudra un stockage chiffré sur un serveur, dont l'entreprise n'a pas la clé, avec un petit coût d'hébergement.
 
 ---
 
