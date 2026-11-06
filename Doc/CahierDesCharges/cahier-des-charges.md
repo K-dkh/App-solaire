@@ -2,12 +2,19 @@
 
 - **Projet :** App-solaire, application de calcul de rendement solaire
 - **UCE :** Processus du développement logiciel (Master ILSEN, S1)
-- **Version :** 0.1 (ébauche)
-- **Date :** 05/10/2026
-- **Statut :** Brouillon, à valider avec le Product Owner
+- **Version :** 0.2
+- **Date :** 06/11/2026
+- **Statut :** Brouillon, mis à jour après le compte rendu n°3. Certains points restent à valider avec le Product Owner
 - **Auteurs :** Equipe Dev
 
 > Les éléments marqués **[À valider PO]** sont des hypothèses de l'équipe qui doivent être confirmées lors d'une prochaine réunion.
+
+## Historique des versions
+
+| Version | Date | Modifications |
+|---|---|---|
+| 0.1 | 05/10/2026 | Ébauche initiale. |
+| 0.2 | 06/11/2026 | Prise en compte du compte rendu n°3 : données clients chiffrées sur l'appareil (ADR-006), API externes (ADR-007), consommation simulée, version web, hébergement. |
 
 ---
 
@@ -30,8 +37,8 @@ Le client est une entreprise qui installe des panneaux photovoltaïques et les v
 
 Le projet couvre :
 
-- une application mobile destinée aux clients particuliers ;
-- une API back-end qui fournit et calcule les données photovoltaïques ;
+- une application mobile et web destinée aux clients particuliers ;
+- une API back-end qui fournit et calcule les données photovoltaïques, sans enregistrer de données clients (ADR-006) ;
 - des données de production et de consommation **simulées** dans le cadre du projet.
 
 Hors périmètre (voir section 8) : connexion à de vrais onduleurs ou compteurs, paiement, gestion commerciale de l'entreprise.
@@ -63,7 +70,7 @@ Exemple : un panneau de 400 Wc pour 1,9 m² a un rendement d'environ 21 %.
 
 ### 3.2 Production estimée
 
-Formule simplifiée envisagée **[À valider PO]** :
+Formule simplifiée, présentée au PO sans objection (compte rendu n°3) :
 
 ```
 Production (kWh) = Puissance crête installée (kWc) × Irradiation (kWh/m²) × Coefficient de performance
@@ -93,12 +100,14 @@ Délai de rentabilité  = Coût de l'installation (€) / Économies annuelles (
 
 Priorités selon la méthode MoSCoW : **M** = Must (indispensable), **S** = Should (important), **C** = Could (souhaitable), **W** = Won't (pas pour cette version).
 
-### 4.1 Compte utilisateur
+> La [liste des fonctionnalités](liste-fonctionnalites.md) et les tickets FCT-01 à FCT-06 décrivent encore des comptes sur un serveur. Ils seront alignés sur cette version après la réponse du PO sur le multi-appareil (section 10).
+
+### 4.1 Profil utilisateur
 
 | ID | Exigence | Priorité |
 |---|---|---|
-| F-01 | L'utilisateur peut créer un compte et se connecter. | M |
-| F-02 | L'utilisateur peut modifier ou supprimer son compte et ses données (RGPD). | S |
+| F-01 | L'utilisateur peut créer un profil local protégé par un code, sans compte sur un serveur (ADR-006). **[À valider PO]** | M |
+| F-02 | L'utilisateur peut modifier ou supprimer son profil et ses données, et les exporter dans un fichier chiffré (RGPD). | S |
 
 ### 4.2 Installation
 
@@ -113,7 +122,7 @@ Priorités selon la méthode MoSCoW : **M** = Must (indispensable), **S** = Shou
 
 | ID | Exigence | Priorité |
 |---|---|---|
-| F-20 | L'application récupère automatiquement les données météo et d'ensoleillement pour la localisation de l'installation. **[À valider PO]** | M |
+| F-20 | L'application récupère automatiquement les données météo et d'ensoleillement pour la localisation de l'installation (Open-Meteo, ADR-007). | M |
 | F-21 | L'utilisateur peut consulter la météo et l'ensoleillement prévus. | S |
 | F-22 | L'utilisateur peut saisir manuellement des données météo. **[À valider PO]** | C |
 
@@ -130,7 +139,7 @@ Priorités selon la méthode MoSCoW : **M** = Must (indispensable), **S** = Shou
 
 | ID | Exigence | Priorité |
 |---|---|---|
-| F-40 | L'utilisateur peut suivre sa consommation électrique (données simulées ou saisies). **[À valider PO]** | M |
+| F-40 | L'utilisateur peut suivre sa consommation électrique (données simulées, car aucune API ne fournit la consommation réelle d'un foyer). | M |
 | F-41 | L'application calcule les économies réalisées. | M |
 | F-42 | L'application calcule le délai de rentabilité de l'installation. | M |
 | F-43 | L'utilisateur visualise un tableau de bord récapitulatif : production, consommation, économies, rentabilité. | S |
@@ -149,9 +158,9 @@ Priorités selon la méthode MoSCoW : **M** = Must (indispensable), **S** = Shou
 | ID | Catégorie | Exigence |
 |---|---|---|
 | NF-01 | Ergonomie | Interface simple, compréhensible par un utilisateur non technique, unités explicites (kWh, €, années). |
-| NF-02 | Plateformes | Application disponible sur Android et iOS **[À valider PO]**. |
-| NF-03 | Sécurité | Mots de passe hachés, communications chiffrées (HTTPS), accès aux données limité à leur propriétaire. |
-| NF-04 | RGPD | Données personnelles minimales, consentement explicite, droit d'accès et de suppression. |
+| NF-02 | Plateformes | Application disponible sur Android, iOS et web. |
+| NF-03 | Sécurité | Données clients chiffrées sur l'appareil, avec une clé protégée par le code de l'utilisateur et, sur téléphone, par le coffre sécurisé (Android Keystore, iOS Keychain). Communications chiffrées (HTTPS). Données accessibles uniquement au client : l'entreprise ne peut pas les lire. |
+| NF-04 | RGPD | Données personnelles minimales, consentement explicite, droit d'accès et de suppression. L'entreprise ne conserve aucune donnée client. |
 | NF-05 | Performance | Les calculs et l'affichage du tableau de bord prennent moins de 2 secondes. |
 | NF-06 | Disponibilité | L'application reste consultable si l'API météo externe est indisponible (dernières données en cache). |
 | NF-07 | Qualité | Code commenté en anglais, tests unitaires sur les calculs métier, intégration continue. |
@@ -163,21 +172,19 @@ Priorités selon la méthode MoSCoW : **M** = Must (indispensable), **S** = Shou
 ## 6. Architecture technique (envisagée)
 
 ```
-┌──────────────────┐      HTTPS / REST      ┌──────────────────┐      ┌──────────────────────┐
-│ Application      │ ─────────────────────► │ API back-end     │ ───► │ API météo externe    │
-│ mobile (client)  │ ◄───────────────────── │ (calculs, données│      │ (ex. Open-Meteo,     │
-└──────────────────┘                        │  simulées)       │      │  PVGIS)              │
-                                            └────────┬─────────┘      └──────────────────────┘
-                                                     │
-                                            ┌────────▼─────────┐
-                                            │ Base de données  │
-                                            └──────────────────┘
+┌──────────────────────┐   HTTPS / REST    ┌──────────────────────┐      ┌────────────────────┐
+│ Application          │ ────────────────► │ API back-end         │ ───► │ Services externes  │
+│ mobile et web        │ ◄──────────────── │ (calculs, données    │      │ (Open-Meteo, PVGIS)│
+│ (données chiffrées   │                   │ simulées, catalogue, │      └────────────────────┘
+│ sur l'appareil)      │                   │ cache)               │
+└──────────────────────┘                   └──────────────────────┘
 ```
 
-- **Front :** application mobile multiplateforme  (technologie _à choisir **React Native**).
-- **Back-end :** API REST (technologie **Spring** ).
-- **Données :** base de données pour les comptes et les installations. Production et consommation simulées.
-- **Hébergement :** service cloud envisagé, prestataire et coût **[À valider PO]**.
+- **Front :** application mobile et web multiplateforme (**React Native**, ADR-001).
+- **Back-end :** API REST (**Spring Boot**, ADR-002), qui n'enregistre aucune donnée client. Elle calcule à partir des paramètres reçus et appelle seule les services externes (ADR-007).
+- **Données :** données clients stockées et chiffrées sur l'appareil (ADR-006). Production et consommation simulées. Le besoin d'une base de données côté API reste à réviser (ADR-005).
+- **Hébergement :** aucun budget défini. L'API tourne en local ou sur un hébergement gratuit pour les démos.
+
 ---
 
 ## 7. Contraintes
@@ -186,7 +193,8 @@ Priorités selon la méthode MoSCoW : **M** = Must (indispensable), **S** = Shou
 - **Outils :** GitHub (code, documentation, comptes rendus) et GitHub Projects (backlog), accessibles à l'enseignant.
 - **Conventions :** commentaires de code et messages de commit en anglais.
 - **Réglementaire :** conformité RGPD.
-- **Budget :** coût d'un éventuel service cloud à évaluer.
+- **Budget :** aucun coût supplémentaire pour les clients, aucun budget d'hébergement défini.
+- **Organisation :** l'équipe travaille sur le projet uniquement pendant les séances de TP.
 - **Délai :** livraison finale à la dernière séance de TP.
 
 ---
@@ -197,6 +205,7 @@ Priorités selon la méthode MoSCoW : **M** = Must (indispensable), **S** = Shou
 - Vente, paiement ou devis en ligne.
 - Gestion commerciale interne de l'entreprise (CRM, facturation).
 - Application desktop **[À valider PO]**.
+- Stockage des données clients sur un serveur et synchronisation automatique entre appareils **[À valider PO]**.
 
 ---
 
@@ -210,12 +219,23 @@ Priorités selon la méthode MoSCoW : **M** = Must (indispensable), **S** = Shou
 
 ---
 
-## 10. Questions ouvertes pour le PO
+## 10. Questions pour le PO
 
-1. **Cloud :** quel prestataire, et qui prend en charge le coût (budget max / mois ) ?
-2. **Météo :** données récupérées automatiquement via une API, saisies par l'utilisateur, ou les deux ?
-3. **Consommation :** d'où viennent les données (compteur, saisie manuelle, simulation) ?
-5. **Types de panneaux :** lesquels doivent être pris en charge ?
-6. **Utilisateurs :** l'application s'adresse-t-elle aussi aux prospects et aux conseillers de l'entreprise ?
-7. **Revente :** faut-il gérer la revente du surplus d'électricité (tarif de rachat) dans le calcul des économies ?
-8. **Multi-installations :** un client peut-il avoir plusieurs installations ?
+### 10.1 Points traités (compte rendu n°3)
+
+| Point | Réponse |
+|---|---|
+| Données clients | Chiffrées avec une clé, accessibles uniquement au client et non gérées par l'entreprise (confirmé par le PO). |
+| Cloud et hébergement | Pas de coût supplémentaire pour les clients. Aucun budget défini : API en local ou hébergement gratuit pour les démos (à confirmer). |
+| Météo | Récupération automatique via Open-Meteo, présentée sans objection. |
+| Consommation | Données simulées, présentées sans objection. Les compteurs sont hors périmètre. |
+
+### 10.2 Questions ouvertes
+
+1. **Plusieurs appareils :** un client doit-il retrouver ses données sur le web et sur son téléphone ? Si oui, il faut un stockage chiffré sur un serveur, avec un petit coût d'hébergement.
+2. **Charge :** le plafond de 15 h s'entend-il par personne ou pour toute l'équipe ?
+3. **Types de panneaux :** lesquels doivent être pris en charge ?
+4. **Utilisateurs :** l'application s'adresse-t-elle aussi aux prospects et aux conseillers de l'entreprise ?
+5. **Revente :** faut-il gérer la revente du surplus d'électricité (tarif de rachat) dans le calcul des économies ?
+6. **Multi-installations :** un client peut-il avoir plusieurs installations ?
+7. **Météo manuelle :** l'utilisateur doit-il aussi pouvoir saisir la météo à la main ?
