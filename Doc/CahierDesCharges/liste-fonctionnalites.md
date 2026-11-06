@@ -1,108 +1,98 @@
 # Liste des fonctionnalités : App-solaire
 
-- **Version :** 0.3 (ébauche)
+- **Version :** 0.5 (ébauche)
 - **Date :** 05/10/2026
 - **Source :** [Cahier des charges](cahier-des-charges.md), section 4
-- **Stack :** application mobile React Native, API REST Spring
+- **Stack :** application mobile React Native, back-end Spring
 
-> Les fonctionnalités sont regroupées par **epic** (grand domaine fonctionnel). Chaque ligne indique l'exigence du cahier des charges qu'elle couvre et sa priorité MoSCoW (**M** = indispensable, **S** = important, **C** = souhaitable). Les éléments marqués **[À valider PO]** dépendent d'une réponse du Product Owner.
+> Chaque ligne est une fonctionnalité concrète de l'application, telle que l'utilisateur la voit. Elle indique l'exigence du cahier des charges qu'elle couvre et sa priorité MoSCoW (**M** = indispensable, **S** = important, **C** = souhaitable). Les éléments marqués **[À valider PO]** dépendent d'une réponse du Product Owner.
 >
-> **Estimation :** charge en **heures-homme** (base : 1 journée = 7 h, donc une demi-journée = 3,5 h). Elle inclut le développement API et mobile, les tests et la revue de code. Ce sont des estimations initiales à réviser en équipe (planning poker).
+> **Estimation :** en **heures-homme**, réparties selon l'organisation de l'équipe, **avec une utilisation intensive des LLM** (génération de code, de tests et de documentation). La colonne « Sans LLM » rappelle l'estimation initiale. Ce sont des estimations à réviser en équipe (planning poker).
+>
+> **Gain retenu par rapport à l'estimation sans LLM :**
+> - **API** (Sheinez) : −45 %. Le code d'intégration et de calcul se génère bien, mais les formules et les appels à l'API météo doivent être vérifiés à la main.
+> - **Appli** (Malikath, Dédé) : −55 %. Écrans, formulaires et CRUD Spring sont très répétitifs, donc faciles à générer.
+> - **Tests & doc** (Téo) : −60 %. Les tests unitaires et la documentation se génèrent très bien à partir du code.
+>
+> Ces heures **incluent la relecture et la correction** du code généré : chaque membre doit comprendre ce qu'il livre et pouvoir l'expliquer en démo. Valeurs arrondies à la demi-heure (minimum 0,5 h).
+
+## Répartition de l'équipe
+
+| Partie | Responsable(s) | Contenu |
+|---|---|---|
+| **API** | Sheinez | API de données photovoltaïques : météo et ensoleillement (API externe), données simulées de production et de consommation, calculs (rendement, production, économies, rentabilité). |
+| **Appli** | Malikath, Dédé | Application React Native (écrans) et son back-end Spring (comptes, installations, appels à l'API). |
+| **Tests & doc** | Téo | Tests (unitaires, intégration, recette), documentation technique et utilisateur. |
 
 ---
 
-## Epic 1 : Compte utilisateur
+## Fonctionnalités
 
-| ID | Fonctionnalité | Description | Exigence | Priorité | Estimation (h) |
-|---|---|---|---|---|---|
-| FCT-01 | Inscription | Créer un compte avec e-mail et mot de passe, et accepter les conditions d'utilisation (consentement RGPD). | F-01 | M | 14 |
-| FCT-02 | Connexion / déconnexion | Se connecter avec ses identifiants et rester connecté entre deux ouvertures de l'app. | F-01 | M | 10,5 |
-| FCT-03 | Mot de passe oublié | Réinitialiser son mot de passe par e-mail. | F-01 | C | 10,5 |
-| FCT-04 | Gestion du profil | Consulter et modifier ses informations personnelles. | F-02 | S | 7 |
-| FCT-05 | Suppression du compte | Supprimer son compte et toutes ses données (droit à l'effacement). | F-02 | S | 7 |
-| FCT-06 | Export des données | Télécharger ses données personnelles (droit d'accès RGPD). | F-02 | C | 7 |
-| | | | | **Total epic** | **56** |
-
-## Epic 2 : Installation photovoltaïque
-
-| ID | Fonctionnalité | Description | Exigence | Priorité | Estimation (h) |
-|---|---|---|---|---|---|
-| FCT-10 | Création d'une installation | Saisir la localisation (adresse ou géolocalisation), le nombre de panneaux, le type, la puissance crête, la surface, l'orientation et l'inclinaison. | F-10 | M | 17,5 |
-| FCT-11 | Choix du type de panneau | Sélectionner un type de panneau dans une liste (monocristallin, polycristallin, couche mince…) qui préremplit ses caractéristiques. | F-10 | S | 7 |
-| FCT-12 | Informations financières | Saisir le coût de l'installation et le prix du kWh acheté. | F-11 | M | 3,5 |
-| FCT-13 | Tarif de rachat | Saisir le tarif de revente du surplus d'électricité. **[À valider PO]** | F-11 | C | 3,5 |
-| FCT-14 | Fiche installation | Consulter le récapitulatif de son installation. | F-10 | M | 7 |
-| FCT-15 | Modification d'une installation | Modifier les informations de son installation. | F-12 | S | 7 |
-| FCT-16 | Plusieurs installations | Ajouter plusieurs installations et passer de l'une à l'autre. **[À valider PO]** | F-13 | C | 10,5 |
-| | | | | **Total epic** | **56** |
-
-## Epic 3 : Météo et ensoleillement
-
-| ID | Fonctionnalité | Description | Exigence | Priorité | Estimation (h) |
-|---|---|---|---|---|---|
-| FCT-20 | Récupération automatique | L'API récupère l'ensoleillement et la météo pour la localisation de l'installation via une API externe (Open-Meteo, PVGIS). **[À valider PO]** | F-20 | M | 14 |
-| FCT-21 | Mise en cache | Les dernières données météo sont conservées pour rester consultables si l'API externe est indisponible. | NF-06 | S | 7 |
-| FCT-22 | Écran météo | Afficher la météo et l'ensoleillement du jour et des prochains jours. | F-21 | S | 10,5 |
-| FCT-23 | Saisie manuelle | Saisir ou corriger des données météo à la main. **[À valider PO]** | F-22 | C | 7 |
-| | | | | **Total epic** | **38,5** |
-
-## Epic 4 : Production et rendement
-
-| ID | Fonctionnalité | Description | Exigence | Priorité | Estimation (h) |
-|---|---|---|---|---|---|
-| FCT-30 | Calcul du rendement | Calculer et afficher le rendement des panneaux (%) à partir de la puissance crête et de la surface. | F-30 | M | 3,5 |
-| FCT-31 | Production estimée | Calculer la production estimée en kWh par jour, par mois et par an. | F-31 | M | 14 |
-| FCT-32 | Simulation de production | Générer un historique de production simulé pour l'installation. | F-31 | M | 10,5 |
-| FCT-33 | Graphiques de production | Afficher la production sous forme de graphiques avec choix de la période (jour, mois, année). | F-32 | S | 14 |
-| FCT-34 | Prévision de production | Afficher la production prévue pour les prochains jours d'après les prévisions météo. | F-33 | S | 7 |
-| | | | | **Total epic** | **49** |
-
-## Epic 5 : Consommation, économies et rentabilité
-
-| ID | Fonctionnalité | Description | Exigence | Priorité | Estimation (h) |
-|---|---|---|---|---|---|
-| FCT-40 | Données de consommation | Obtenir la consommation électrique, simulée ou saisie par l'utilisateur. **[À valider PO]** | F-40 | M | 10,5 |
-| FCT-41 | Suivi de consommation | Afficher la consommation et la comparer à la production. | F-40 | S | 10,5 |
-| FCT-42 | Calcul des économies | Calculer les économies réalisées (en €) sur une période. | F-41 | M | 7 |
-| FCT-43 | Délai de rentabilité | Calculer et afficher en combien de temps l'installation est rentabilisée. | F-42 | M | 3,5 |
-| FCT-44 | Tableau de bord | Écran d'accueil récapitulatif : production, consommation, économies, rentabilité. | F-43 | S | 14 |
-| | | | | **Total epic** | **45,5** |
-
-## Epic 6 : Espace entreprise
-
-| ID | Fonctionnalité | Description | Exigence | Priorité | Estimation (h) |
-|---|---|---|---|---|---|
-| FCT-50 | Simulation pour un prospect | Un conseiller saisit une installation fictive et obtient la production et la rentabilité prévues. **[À valider PO]** | F-50 | S | 14 |
-| FCT-51 | Catalogue des panneaux | Un administrateur ajoute, modifie ou supprime des types de panneaux et leurs caractéristiques. **[À valider PO]** | F-51 | C | 14 |
-| FCT-52 | Rôles utilisateurs | Distinguer les rôles client, conseiller et administrateur, avec des droits différents. **[À valider PO]** | F-50, F-51 | S | 10,5 |
-| | | | | **Total epic** | **38,5** |
+| ID | Fonctionnalité | Description | Exigence | Prio | API (h) | Appli (h) | Tests & doc (h) | Total (h) | Sans LLM (h) |
+|---|---|---|---|---|---|---|---|---|---|
+| FCT-01 | Créer un compte | S'inscrire avec e-mail et mot de passe, et accepter les conditions d'utilisation (consentement RGPD). | F-01 | M | – | 4,5 | 1 | 5,5 | 13 |
+| FCT-02 | Se connecter / se déconnecter | Se connecter avec ses identifiants et rester connecté entre deux ouvertures de l'app. | F-01 | M | – | 3,5 | 1 | 4,5 | 10 |
+| FCT-03 | Réinitialiser son mot de passe | Recevoir un e-mail pour choisir un nouveau mot de passe. | F-01 | C | – | 3,5 | 1 | 4,5 | 10 |
+| FCT-04 | Modifier son profil | Consulter et modifier ses informations personnelles. | F-02 | S | – | 2,5 | 1 | 3,5 | 7 |
+| FCT-05 | Supprimer son compte | Supprimer son compte et toutes ses données (droit à l'effacement). | F-02 | S | – | 2,5 | 1 | 3,5 | 7 |
+| FCT-06 | Télécharger ses données | Exporter ses données personnelles (droit d'accès RGPD). | F-02 | C | – | 2,5 | 1 | 3,5 | 7 |
+| FCT-07 | Déclarer son installation | Saisir le nombre de panneaux, la puissance crête, la surface, l'orientation et l'inclinaison. | F-10 | M | – | 6,5 | 1,5 | 8 | 18 |
+| FCT-08 | Localiser son installation | Indiquer l'emplacement par géolocalisation du téléphone ou par adresse. | F-10 | M | 1 | 2,5 | 1 | 4,5 | 9 |
+| FCT-09 | Choisir son type de panneau | Sélectionner un type de panneau dans une liste (monocristallin, polycristallin, couche mince…) qui préremplit ses caractéristiques. | F-10 | S | 1,5 | 2 | 0,5 | 4 | 8 |
+| FCT-10 | Renseigner les informations financières | Saisir le coût de l'installation et le prix du kWh acheté. | F-11 | M | – | 1,5 | 0,5 | 2 | 4 |
+| FCT-11 | Renseigner son tarif de revente | Saisir le tarif de rachat du surplus d'électricité. **[À valider PO]** | F-11 | C | – | 1 | 0,5 | 1,5 | 3 |
+| FCT-12 | Consulter la fiche de son installation | Voir le récapitulatif de son installation. | F-10 | M | – | 2,5 | 1 | 3,5 | 7 |
+| FCT-13 | Modifier son installation | Modifier les informations de son installation. | F-12 | S | – | 2,5 | 1 | 3,5 | 7 |
+| FCT-14 | Gérer plusieurs installations | Ajouter plusieurs installations et passer de l'une à l'autre. **[À valider PO]** | F-13 | C | – | 3,5 | 1 | 4,5 | 10 |
+| FCT-15 | Consulter la météo et l'ensoleillement | Voir la météo et l'ensoleillement du jour et des prochains jours pour son installation (récupérés automatiquement, conservés en cache si le service météo est indisponible). **[À valider PO]** | F-20, F-21 | S | 5,5 | 2,5 | 1 | 9 | 19 |
+| FCT-16 | Saisir la météo manuellement | Saisir ou corriger des données météo à la main. **[À valider PO]** | F-22 | C | 1 | 2 | 0,5 | 3,5 | 7 |
+| FCT-17 | Voir le rendement de ses panneaux | Afficher le rendement (%) calculé à partir de la puissance crête et de la surface. | F-30 | M | 1 | 1 | 0,5 | 2,5 | 5 |
+| FCT-18 | Voir sa production estimée | Afficher la production estimée en kWh par jour, par mois et par an. | F-31 | M | 5,5 | 2,5 | 1 | 9 | 18 |
+| FCT-19 | Voir l'historique de production | Afficher la production passée (simulée) sous forme de graphiques, avec choix de la période. | F-31, F-32 | S | 3,5 | 4,5 | 1 | 9 | 18 |
+| FCT-20 | Voir la prévision de production | Afficher la production prévue pour les prochains jours d'après les prévisions météo. | F-33 | S | 2 | 2 | 1 | 5 | 10 |
+| FCT-21 | Suivre sa consommation | Afficher sa consommation électrique (simulée ou saisie). **[À valider PO]** | F-40 | M | 3,5 | 2,5 | 1 | 7 | 14 |
+| FCT-22 | Comparer production et consommation | Voir sur un même graphique ce que l'on produit et ce que l'on consomme. | F-40 | S | 1 | 2,5 | 1 | 4,5 | 10 |
+| FCT-23 | Voir ses économies | Afficher les économies réalisées (en €) sur une période. | F-41 | M | 2 | 1,5 | 1 | 4,5 | 9 |
+| FCT-24 | Voir le délai de rentabilité | Afficher en combien de temps l'installation est rentabilisée. | F-42 | M | 1 | 1 | 0,5 | 2,5 | 5 |
+| FCT-25 | Consulter le tableau de bord | Écran d'accueil récapitulatif : production, consommation, économies, rentabilité. | F-43 | S | – | 5,5 | 1 | 6,5 | 14 |
+| FCT-26 | Simuler une installation pour un prospect | Un conseiller saisit une installation fictive et obtient la production et la rentabilité prévues. **[À valider PO]** | F-50 | S | 1 | 4,5 | 1 | 6,5 | 14 |
+| FCT-27 | Gérer le catalogue de panneaux | Un administrateur ajoute, modifie ou supprime des types de panneaux et leurs caractéristiques. **[À valider PO]** | F-51 | C | 1 | 4,5 | 1 | 6,5 | 14 |
+| FCT-28 | Gérer les accès par rôle | Distinguer les comptes client, conseiller et administrateur, avec des droits différents. **[À valider PO]** | F-50, F-51 | S | – | 3,5 | 1 | 4,5 | 10 |
+| | | | | **Total** | **30,5** | **81** | **25,5** | **137** | **287** |
 
 ---
 
 ## Proposition de MVP
 
-Version minimale à viser pour les premiers sprints, avec uniquement les fonctionnalités **M** (**115,5 h**) :
+Version minimale à viser pour les premiers sprints, avec uniquement les fonctionnalités **M** (**53,5 h**, contre 112 h sans LLM) :
 
-1. **Compte :** inscription, connexion (FCT-01, FCT-02) : 24,5 h
-2. **Installation :** création, informations financières, fiche (FCT-10, FCT-12, FCT-14) : 28 h
-3. **Météo :** récupération automatique (FCT-20) : 14 h
-4. **Production :** rendement, production estimée, simulation (FCT-30, FCT-31, FCT-32) : 28 h
-5. **Rentabilité :** consommation, économies, délai de rentabilité (FCT-40, FCT-42, FCT-43) : 21 h
+- FCT-01, FCT-02 : créer un compte, se connecter
+- FCT-07, FCT-08, FCT-10, FCT-12 : déclarer, localiser et consulter son installation, avec ses informations financières
+- FCT-17, FCT-18 : voir le rendement et la production estimée
+- FCT-21, FCT-23, FCT-24 : suivre sa consommation, voir ses économies et le délai de rentabilité
 
-Les calculs (FCT-30, FCT-31, FCT-42, FCT-43) peuvent être développés et testés côté API avant que les écrans mobiles soient prêts. C'est un bon candidat pour le Sprint 1, avec une démo possible au PO dès la séance suivante.
+Les calculs côté API (FCT-17, FCT-18, FCT-23, FCT-24) peuvent être développés et testés avant que les écrans soient prêts. C'est un bon candidat pour le Sprint 1, avec une démo possible au PO dès la séance suivante.
 
 ---
 
 ## Récapitulatif
 
-| Epic | M | S | C | Total | Estimation (h) |
-|---|---|---|---|---|---|
-| 1. Compte utilisateur | 2 | 2 | 2 | 6 | 56 |
-| 2. Installation | 3 | 2 | 2 | 7 | 56 |
-| 3. Météo | 1 | 2 | 1 | 4 | 38,5 |
-| 4. Production et rendement | 3 | 2 | 0 | 5 | 49 |
-| 5. Consommation et rentabilité | 3 | 2 | 0 | 5 | 45,5 |
-| 6. Espace entreprise | 0 | 2 | 1 | 3 | 38,5 |
-| **Total** | **12** | **12** | **6** | **30** | **283,5** |
+### Charge par priorité
 
-**Charge par priorité :** M = 115,5 h · S = 115,5 h · C = 52,5 h
+| Priorité | Nb | API (h) | Appli (h) | Tests & doc (h) | Total (h) | Sans LLM (h) |
+|---|---|---|---|---|---|---|
+| M | 11 | 14 | 29,5 | 10 | 53,5 | 112 |
+| S | 11 | 14,5 | 34,5 | 10,5 | 59,5 | 124 |
+| C | 6 | 2 | 17 | 5 | 24 | 51 |
+| **Total** | **28** | **30,5** | **81** | **25,5** | **137** | **287** |
+
+Gain global : **150 h**, soit environ **−52 %**.
+
+### Charge par personne
+
+| Personne | Partie | Charge (h) | Sans LLM (h) |
+|---|---|---|---|
+| Sheinez | API | 30,5 | 57 |
+| Malikath | Appli | ≈ 40,5 (moitié de 81) | ≈ 87,5 |
+| Dédé | Appli | ≈ 40,5 (moitié de 81) | ≈ 87,5 |
+| Téo | Tests & doc | 25,5 (hors documentation Scrum : comptes rendus, backlog, cahier des charges) | 55 |
