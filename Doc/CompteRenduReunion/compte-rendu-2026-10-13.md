@@ -29,9 +29,9 @@
 
 | API | Rôle | Fonctionnalités | Coût |
 |---|---|---|---|
-| Open-Meteo (externe) | Météo actuelle, prévisions à 7 jours, rayonnement solaire du lieu | FCT-20, 22, 34 | Gratuite, usage non commercial, 10 000 appels par jour |
-| PVGIS (Commission européenne) | Irradiation et production photovoltaïque estimées selon le lieu, l'orientation et l'inclinaison, avec historique | FCT-31, 32, vérification des calculs | Gratuite, limite de 30 appels par seconde |
-| API App-solaire (Spring, développée par l'équipe) | Appels aux API externes avec cache, calculs, données simulées | FCT-30 à 32, 40 à 44 | Hébergement à définir |
+| Open-Meteo (externe) | Météo actuelle, prévisions à 7 jours, rayonnement solaire du lieu | FCT-15, 20 | Gratuite, usage non commercial, 10 000 appels par jour |
+| PVGIS (Commission européenne) | Irradiation et production photovoltaïque estimées selon le lieu, l'orientation et l'inclinaison, avec historique | FCT-18, 19, vérification des calculs | Gratuite, limite de 30 appels par seconde |
+| API App-solaire (Spring, développée par l'équipe) | Appels aux API externes avec cache, calculs, données simulées | FCT-17 à 19, FCT-21 à 25 | Hébergement à définir |
 
 **Décisions soumises au PO :** météo automatique via Open-Meteo ; consommation simulée (aucune API ne fournit la consommation réelle d'un foyer, compteurs hors périmètre) ; formule de production simplifiée ; usage non commercial d'Open-Meteo (une vraie commercialisation demanderait une offre payante) ; hébergement (prestataire et budget maximal, sinon l'API tourne en local ou sur un hébergement gratuit pour les démos).
 
@@ -41,9 +41,9 @@ Le PO n'a pas contesté ces choix. Il a ajouté que les données des clients doi
 
 | Point | Réponse du PO |
 |---|---|
-| Cloud et hébergement | Pas de coût supplémentaire pour les clients et pas de gestion de leurs données par l'entreprise : protection par chiffrement avec une clé (voir 4). Aucun budget d'hébergement défini : l'API tourne en local ou gratuitement pour les démos. <!-- confirmer --> |
-| Météo | Automatique via Open-Meteo, présenté sans objection 
-| Consommation | Simulée : aucune API ne fournit la consommation réelle, les compteurs sont hors périmètre ||
+| Cloud et hébergement | Pas de coût supplémentaire pour les clients et pas de gestion de leurs données par l'entreprise : protection par chiffrement avec une clé (voir 4). Aucun budget d'hébergement défini : l'API tourne en local ou gratuitement pour les démos (à confirmer). |
+| Météo | Automatique via Open-Meteo, présenté sans objection |
+| Consommation | Simulée : aucune API ne fournit la consommation réelle, les compteurs sont hors périmètre |
 
 
 ## 4. Retours du PO et questions soulevées
@@ -83,7 +83,7 @@ Le PO a demandé à l'équipe d'étudier les points suivants :
 
 **À clarifier : plusieurs appareils (web et mobile).** L'application existant en version web et mobile, il faut savoir si un client doit retrouver les mêmes données sur les deux. Sinon, chaque appareil garde ses données et le client les transfère par export chiffré. Si oui, il faut un stockage de données chiffrées sur un serveur, dont l'entreprise n'a pas la clé, avec un petit coût d'hébergement.
 
-- **Décision :** <!-- à convenir -->
+- **Décision :** non tranchée à l'issue de la réunion.
 
 ### 4.3 Autres retours et nouvelles demandes
 
@@ -100,7 +100,11 @@ Le PO a demandé à l'équipe d'étudier les points suivants :
 
 - [ ] Clarifier avec le PO si le client doit retrouver ses données sur plusieurs appareils (web et mobile), avant de développer les comptes
 - [ ] Vérifier que les écrans de la maquette validée (inscription, connexion, profil) restent cohérents avec la réponse du PO sur les données, et les adapter si besoin
-- [ ] Valider l'ADR-006, réviser l'ADR-005 et mettre à jour les epics 1, 2 et 6 de la liste des fonctionnalités selon la réponse
+- [ ] Valider l'ADR-006, réviser l'ADR-005 et mettre à jour les fonctionnalités FCT-01 à 14 et FCT-26 à 28 selon la réponse
 - [ ] Prévoir comment tester l'application sur iOS (Mac, ou Expo sur un iPhone)
 - [ ] Mettre à jour l'ADR-001 (version web) et prévoir la déclinaison web de la maquette (grands écrans)
 - [ ] Préparer les questions pour la prochaine réunion avec le PO
+
+---
+
+*Corrigé le 06/11/2026 : numéros de fonctionnalités alignés sur la liste v0.5 et mise en forme du tableau de la section 3. Le contenu de la réunion n'a pas changé.*
