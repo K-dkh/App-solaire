@@ -91,7 +91,7 @@ Le PO a demandé à l'équipe d'étudier les points suivants :
 
 ## 5. Décisions prises
 
-- Maquette de l'application : validée par le PO.
+- Maquette de l'application : validée par le PO : https://www.figma.com/make/kqCy3LOk10zmk5JiGHlrFv/Portfolio-slideshow?t=ZQgTTKLCpxXcikmn-1 
 - Choix des API externes (Open-Meteo, PVGIS) et consommation simulée : présentés sans objection du PO. 
 - Données des clients chiffrées avec une clé, accessibles uniquement au client et non gérées par l'entreprise (confirmé par le PO). Proposition de l'équipe : stockage local chiffré et API sans données clients (ADR-006). Le multi-appareil reste à clarifier.
 - Démarrage du développement.
