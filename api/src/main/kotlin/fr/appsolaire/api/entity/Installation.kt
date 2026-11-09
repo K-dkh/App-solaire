@@ -46,18 +46,6 @@ class Installation(
     @Column(name = "inclinaison_deg", nullable = false)
     var inclinaisonDeg: Int = 0,
 
-    /** Total cost incl. VAT, in euros. */
-    @Column(name = "cout_eur", nullable = false)
-    var coutEur: Double = 0.0,
-
-    /** Subsidies received, in euros (0 if none). Deducted from the cost for the payback. */
-    @Column(name = "aides_eur", nullable = false)
-    var aidesEur: Double = 0.0,
-
-    /** Price paid for one kWh bought from the grid, in euros. */
-    @Column(name = "prix_kwh_eur", nullable = false)
-    var prixKwhEur: Double = 0.0,
-
     @Column(name = "cree_le", nullable = false)
     val creeLe: Instant = Instant.now(),
 
