@@ -16,8 +16,9 @@ import {
 import { useInstallation } from '../../context/InstallationContext';
 import { computeYieldPct, formatNumber, parseFrenchNumber, roundCoordinates } from '../../domain/calculations';
 import { getPanelType, ORIENTATIONS, PANEL_TYPES } from '../../domain/panelTypes';
-import type { FormErrors, InstallationFormValues, Orientation, PanelTypeId } from '../../domain/types';
+import type { Coordinates, FormErrors, InstallationFormValues, Orientation, PanelTypeId } from '../../domain/types';
 import { EMPTY_FORM, toFormValues, toInstallation, validateInstallation } from '../../domain/validation';
+import { ApiError, createInstallation } from '../../services/api';
 import { colors, radius } from '../../theme';
 
 const STEPS: { label: string; fields: (keyof InstallationFormValues)[] }[] = [
@@ -25,6 +26,29 @@ const STEPS: { label: string; fields: (keyof InstallationFormValues)[] }[] = [
   { label: 'Caractéristiques', fields: ['panelCount', 'peakPowerKwc', 'surfaceM2', 'tiltDeg'] },
   { label: 'Finances', fields: ['costEur', 'subsidiesEur', 'electricityPriceEurPerKwh'] },
 ];
+
+// API field names -> form fields, to show the API messages next to the right input.
+const API_FIELD_TO_FORM: Record<string, keyof InstallationFormValues> = {
+  latitude: 'address',
+  longitude: 'address',
+  panelCount: 'panelCount',
+  peakPowerWc: 'peakPowerKwc',
+  surfaceM2: 'surfaceM2',
+  tiltDeg: 'tiltDeg',
+  costEur: 'costEur',
+  subsidiesEur: 'subsidiesEur',
+  electricityPriceEurPerKwh: 'electricityPriceEurPerKwh',
+};
+
+/** The API needs coordinates: converts a typed address into rounded coordinates (or null). */
+async function geocodeAddress(address: string): Promise<Coordinates | null> {
+  try {
+    const [found] = await Location.geocodeAsync(address);
+    return found ? roundCoordinates(found) : null;
+  } catch {
+    return null;
+  }
+}
 
 // Orientations offered in the mock-up (a north-facing roof is not worth equipping).
 const FORM_ORIENTATIONS: Orientation[] = ['S', 'SE', 'SW', 'E', 'W'];
@@ -39,6 +63,7 @@ export default function InstallationSetupScreen() {
   const [values, setValues] = useState<InstallationFormValues>(installation ? toFormValues(installation) : EMPTY_FORM);
   const [errors, setErrors] = useState<FormErrors>({});
   const [saving, setSaving] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [locating, setLocating] = useState(false);
   const [locationMessage, setLocationMessage] = useState<string | null>(null);
 
@@ -104,9 +129,47 @@ export default function InstallationSetupScreen() {
       return;
     }
     setSaving(true);
+    setSubmitError(null);
     try {
-      await save(toInstallation(values, installation));
+      // The API needs coordinates: an address typed without "Use my position" is converted first.
+      let coordinates = values.coordinates;
+      if (!coordinates) {
+        coordinates = await geocodeAddress(values.address);
+        if (!coordinates) {
+          setErrors({ address: "Adresse introuvable : précisez-la ou utilisez votre position." });
+          setStep(1);
+          return;
+        }
+      }
+      const draft = {
+        ...toInstallation({ ...values, coordinates }, installation),
+        remoteId: installation?.remoteId,
+      };
+      // FCT-07, FCT-08, FCT-10: save on the server. An installation already on the server is
+      // only updated locally for now (TODO(FCT-13): PUT /api/v1/installations/{id}).
+      if (draft.remoteId === undefined) {
+        const created = await createInstallation(draft);
+        draft.remoteId = created.id;
+      }
+      await save(draft);
       router.dismissTo('/');
+    } catch (error) {
+      if (error instanceof ApiError) {
+        const apiErrors: FormErrors = {};
+        for (const [field, message] of Object.entries(error.fieldErrors)) {
+          const formField = API_FIELD_TO_FORM[field];
+          if (formField) apiErrors[formField] = message;
+        }
+        if (Object.keys(apiErrors).length > 0) {
+          setErrors(apiErrors);
+          const firstStep = STEPS.findIndex((s) => s.fields.some((f) => apiErrors[f]));
+          if (firstStep >= 0) setStep(firstStep + 1);
+        } else {
+          setSubmitError(error.message);
+        }
+      } else {
+        setSubmitError('Le serveur est injoignable. Vérifiez votre connexion et réessayez.');
+      }
     } finally {
       setSaving(false);
     }
@@ -119,12 +182,15 @@ export default function InstallationSetupScreen() {
   const previewYield = power > 0 && surface > 0 ? computeYieldPct(power, surface) : null;
 
   const footer = (
-    <PrimaryButton
-      title={step < STEPS.length ? 'Continuer →' : 'Enregistrer mon installation'}
-      onPress={next}
-      loading={saving}
-      disabled={step === 1 && values.address.trim() === '' && values.coordinates === null}
-    />
+    <View style={styles.footer}>
+      {submitError ? <Text style={styles.submitError}>{submitError}</Text> : null}
+      <PrimaryButton
+        title={step < STEPS.length ? 'Continuer →' : 'Enregistrer mon installation'}
+        onPress={next}
+        loading={saving}
+        disabled={step === 1 && values.address.trim() === '' && values.coordinates === null}
+      />
+    </View>
   );
 
   return (
@@ -266,6 +332,8 @@ export default function InstallationSetupScreen() {
 }
 
 const styles = StyleSheet.create({
+  footer: { gap: 8 },
+  submitError: { fontSize: 13, color: colors.red },
   row: { flexDirection: 'row', gap: 10 },
   half: { flex: 1 },
   hint: { fontSize: 12, color: colors.slate },
