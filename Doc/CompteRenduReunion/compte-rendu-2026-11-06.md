@@ -3,7 +3,6 @@
 - **Projet :** App-solaire, application de calcul de rendement solaire
 - **UCE :** Processus du développement logiciel (Master ILSEN, S1)
 - **Date :** 06/11/2026
-- **Type :** Séance d'équipe **[À confirmer après 19h]**
 - **Participants :** Sheinez, Malikath, Dédé, Téo
 - **Rédacteur :** Téo
 
