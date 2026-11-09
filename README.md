@@ -6,11 +6,12 @@ Le client, une entreprise qui installe des panneaux photovoltaïques, veut propo
 
 ## État du projet
 
-Le projet se déroule en **3 sprints**, un par séance de TP de 3 h, après le lancement (17/09) et le cadrage (Sprint 0, 05/10). Chaque sprint offre 12 h à l'équipe de 4.
+Le projet se déroule en **4 sprints**, un par séance de TP de 3 h, après le lancement (17/09) et le cadrage (Sprint 0, 05/10). Chaque sprint offre 12 h à l'équipe de 4.
 
 - **Sprint 1 (13/10) : terminé.** Réunion avec le PO, cahier des charges v0.2, ADR, validation de la maquette.
 - **Sprint 2 (06/11) : terminé.** Backlog et tickets, stratégie et plan de test, initialisation de l'application (Expo) et de l'API (Spring Boot).
-- **Sprint 3 (09/11) : en cours, dernière séance.** Saisie et fiche de l'installation (front et API), tests automatisés du front, replanification, présentation finale et rétrospective.
+- **Sprint 3 (09/11) : terminé.** Saisie et fiche de l'installation (front et API), tests automatisés du front, replanification. Démo validée par le PO.
+- **Sprint 4 (sprint final, date à confirmer) : à venir.** Lien entre l'application et l'API, page de connexion sécurisée, calculs de l'API, présentation finale et rétrospective.
 
 Le détail (tickets, heures, budget, vue par sprint) est dans le [Project « Scrum »](https://github.com/users/K-dkh/projects/3).
 
@@ -54,7 +55,8 @@ Les choix sont justifiés dans les [ADR](Doc/ArchitectureDecisionRecords/ADR-App
 1. [17/09/2026 : lancement avec le Product Owner](Doc/CompteRenduReunion/compte-rendu-2026-09-17.md)
 2. [05/10/2026 : Sprint 0, cadrage](Doc/CompteRenduReunion/compte-rendu-2026-10-05.md)
 3. [13/10/2026 : réunion avec le Product Owner](Doc/CompteRenduReunion/compte-rendu-2026-10-13.md)
-4. [06/11/2026 : Sprint 1, séance d'équipe](Doc/CompteRenduReunion/compte-rendu-2026-11-06.md)
+4. [06/11/2026 : Sprint 2, séance d'équipe](Doc/CompteRenduReunion/compte-rendu-2026-11-06.md)
+5. [09/11/2026 : Sprint 3, démo au PO et planification du Sprint 4](Doc/CompteRenduReunion/compte-rendu-2026-11-09.md)
 
 ## Organisation du dépôt
 
