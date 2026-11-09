@@ -6,7 +6,7 @@ Le client, une entreprise qui installe des panneaux photovoltaïques, veut propo
 
 ## État du projet
 
-Sprint 1 en cours, à partir du 06/11/2026. Le code de l'application n'est pas encore dans le dépôt.
+Sprint 3 en cours, à partir du 09/11/2026. Le front et l'api sont sur le repertoire.
 
 ## Équipe
 
@@ -14,7 +14,7 @@ Sprint 1 en cours, à partir du 06/11/2026. Le code de l'application n'est pas e
 |---|---|
 | Sheinez | API de données photovoltaïques |
 | Malikath | Application et back-end |
-| Dédé | Application et back-end |
+| Dédé | Application et front-end |
 | Téo | Tests et documentation, Scrum Master |
 
 Le Product Owner est l'enseignant.
@@ -48,6 +48,7 @@ Les choix sont justifiés dans les [ADR](Doc/ArchitectureDecisionRecords/ADR-App
 1. [17/09/2026 : lancement avec le Product Owner](Doc/CompteRenduReunion/compte-rendu-2026-09-17.md)
 2. [05/10/2026 : Sprint 0, cadrage](Doc/CompteRenduReunion/compte-rendu-2026-10-05.md)
 3. [13/10/2026 : réunion avec le Product Owner](Doc/CompteRenduReunion/compte-rendu-2026-10-13.md)
+4. [06/11/2026 : réunion avec le Product Owner](Doc/CompteRenduReunion/compte-rendu-2026-11-06.md)
 
 ## Organisation du dépôt
 
@@ -55,4 +56,4 @@ Les choix sont justifiés dans les [ADR](Doc/ArchitectureDecisionRecords/ADR-App
 - `Front`, `api` et `back` sont les branches de travail. Elles sont fusionnées dans `main` par pull request.
 - Les commentaires de code et les messages de commit sont en anglais.
 
-Les tests automatiques sont lancés par GitHub Actions sur chaque pull request et sur `main`.
+Les tests automatiques sont lancés par la chaine CI sur chaque pull request\commit.
