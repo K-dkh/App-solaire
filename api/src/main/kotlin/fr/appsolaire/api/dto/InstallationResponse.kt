@@ -14,6 +14,11 @@ data class InstallationResponse(
     val surfaceM2: Double,
     val orientation: String,
     val tiltDeg: Int,
+    val costEur: Double,
+    val subsidiesEur: Double,
+    /** Cost minus subsidies: the amount used for the payback period. */
+    val netCostEur: Double,
+    val electricityPriceEurPerKwh: Double,
     val createdAt: Instant
 ) {
     companion object {
@@ -28,6 +33,10 @@ data class InstallationResponse(
             surfaceM2 = i.surfaceM2,
             orientation = i.orientation,
             tiltDeg = i.inclinaisonDeg,
+            costEur = i.coutEur,
+            subsidiesEur = i.aidesEur,
+            netCostEur = i.coutEur - i.aidesEur,
+            electricityPriceEurPerKwh = i.prixKwhEur,
             createdAt = i.creeLe
         )
     }
