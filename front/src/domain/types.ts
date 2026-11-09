@@ -12,6 +12,8 @@ export interface Coordinates {
 /** A photovoltaic installation as entered by the client (FCT-10, FCT-11, FCT-12). */
 export interface Installation {
   id: string;
+  /** Id given by the API once the installation is saved on the server (FCT-07). */
+  remoteId?: number;
   name: string;
   address: string;
   /** Rounded to ~1 km for privacy (GDPR), see roundCoordinates(). */
