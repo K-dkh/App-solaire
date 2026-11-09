@@ -4,7 +4,7 @@
 - **UCE :** Processus du développement logiciel (Master ILSEN, S1)
 - **Date :** 09/11/2026
 - **Type :** Séance de TP, fin du Sprint 3, démo au Product Owner
-- **Participants :** l'équipe et l'enseignant (Product Owner)
+- **Participants :** Sheinez, Malikath, Dédé, Téo
 - **Rédacteur :** Téo
 
 ---
@@ -15,7 +15,7 @@
 - [x] Confirmer les noms des dossiers du code : `front/` et `api/`. La CI ne lance pas encore les tests de l'API, qui utilise Gradle et pas Maven ([#45](https://github.com/K-dkh/App-solaire/issues/45)).
 - [x] Adapter le contenu des sprints : replanification en section 2.4
 
-## 2. Travail réalisé pendant le Sprint 3
+## 2. Travail réalisé
 
 ### 2.1 Application (front)
 
@@ -41,7 +41,7 @@
 - Les sprints ont été recalés sur les vraies séances : Sprint 1 le 13/10, Sprint 2 le 06/11, Sprint 3 le 09/11.
 - Capacité : une séance de 3 h par sprint pour 4 personnes, soit 12 h par sprint.
 - L'estimation v0.5 (137 h) dépassait cette capacité d'environ 4 fois. Toutes les fonctionnalités ont été ré-estimées avec l'IA (28 h) : [liste des fonctionnalités v0.6](../CahierDesCharges/liste-fonctionnalites.md).
-- Suivi des heures passées et budget à **40 €/h** (taux fictif) dans le [Project « Scrum »](https://github.com/users/K-dkh/projects/3).
+- Suivi des heures et du budget dans le [Project « Scrum »](https://github.com/users/K-dkh/projects/3).
 - Le pilotage du projet a ses propres tickets (préfixe `SP`).
 - Une vue par sprint a été ajoutée au tableau et les vues inutiles ont été supprimées.
 
@@ -62,44 +62,28 @@
 - **ADR-006 à réviser** : la connexion demandée par le PO suppose des comptes côté serveur, alors que l'ADR-006 prévoyait des données uniquement sur l'appareil.
 - Les tickets non terminés et non prioritaires retournent dans le backlog : FCT-08 (adresse → coordonnées), FCT-13 (modification) et les anomalies #43 et #44.
 
-## 5. Bilan des heures et du budget
+## 5. Contenu du Sprint 4 (sprint final)
 
-| Sprint | Séance | Heures saisies | Coût (40 €/h) |
-|---|---|---:|---:|
-| Sprint 1 | 13/10 | 12 h | 480 € |
-| Sprint 2 | 06/11 | 12 h | 480 € |
-| Sprint 3 | 09/11 | 9 h | 360 € |
-| **Total** | | **33 h** | **1 320 €** |
+| Ticket | Contenu |
+|---|---|
+| [#5](https://github.com/K-dkh/App-solaire/issues/5) FCT-01 | Créer un compte (mot de passe haché, consentement RGPD) |
+| [#6](https://github.com/K-dkh/App-solaire/issues/6) FCT-02 | Page de connexion sécurisée, déconnexion |
+| [#50](https://github.com/K-dkh/App-solaire/issues/50) S4-01 | Relier le front à l'API : installations, calculs, jeton de connexion |
+| [#21](https://github.com/K-dkh/App-solaire/issues/21), [#22](https://github.com/K-dkh/App-solaire/issues/22), [#27](https://github.com/K-dkh/App-solaire/issues/27), [#28](https://github.com/K-dkh/App-solaire/issues/28) | Calculs de l'API : rendement, production, économies, délai de rentabilité |
+| [#29](https://github.com/K-dkh/App-solaire/issues/29) FCT-25 | Tableau de bord alimenté par l'API |
+| [#45](https://github.com/K-dkh/App-solaire/issues/45) | Lancer les tests de l'API dans la CI |
+| [#48](https://github.com/K-dkh/App-solaire/issues/48) | Présentation finale, rétrospective, rendu |
+| [#51](https://github.com/K-dkh/App-solaire/issues/51) SP4 | Pilotage : démo au PO, compte rendu n°6, tableau, révision de l'ADR-006, export |
 
-- **Capacité des 4 sprints :** 48 h, soit 1 920 €. Il reste 12 h pour le Sprint 4.
-- **Pilotage du projet :** les tickets `SP` représentent 21 h des 33 h passées.
-
-## 6. Contenu du Sprint 4 (sprint final)
-
-Capacité : 12 h, soit 4 personnes × 3 h. Le travail restant est estimé à **12 h**.
-
-| Ticket | Contenu | Reste (h) |
-|---|---|---:|
-| [#5](https://github.com/K-dkh/App-solaire/issues/5) FCT-01 | Créer un compte (mot de passe haché, consentement RGPD) | 1,5 |
-| [#6](https://github.com/K-dkh/App-solaire/issues/6) FCT-02 | Page de connexion sécurisée, déconnexion | 2 |
-| [#50](https://github.com/K-dkh/App-solaire/issues/50) S4-01 | Relier le front à l'API : installations, calculs, jeton de connexion | 1,5 |
-| [#21](https://github.com/K-dkh/App-solaire/issues/21), [#22](https://github.com/K-dkh/App-solaire/issues/22), [#27](https://github.com/K-dkh/App-solaire/issues/27), [#28](https://github.com/K-dkh/App-solaire/issues/28) | Calculs de l'API : rendement, production, économies, délai de rentabilité | 2,5 |
-| [#29](https://github.com/K-dkh/App-solaire/issues/29) FCT-25 | Tableau de bord alimenté par l'API | 0,5 |
-| [#45](https://github.com/K-dkh/App-solaire/issues/45) | Lancer les tests de l'API dans la CI | 0,5 |
-| [#48](https://github.com/K-dkh/App-solaire/issues/48) | Présentation finale, rétrospective, rendu | 2,5 |
-| [#51](https://github.com/K-dkh/App-solaire/issues/51) SP4 | Pilotage : démo PO, CR n°6, tableau, révision de l'ADR-006, export | 1 |
-| | **Total** | **12** |
-
-## 7. Points à clarifier
+## 6. Points à clarifier
 
 | Point | Pourquoi | À voir avec |
 |---|---|---|
 | Date du Sprint 4 | Le tableau place le Sprint 4 à partir du 10/11 en attendant la date de la séance. | PO |
 | Données sur le serveur | Avec des comptes, les installations doivent-elles être enregistrées par l'API ou rester sur l'appareil ? Cette réponse décide de la révision de l'ADR-006. | PO, équipe |
 | Plafond de 15 h | Fixé au compte rendu n°2. Avec un Sprint 4, chaque personne fait 18 h de séance. | PO |
-| Taux horaire | Les 40 €/h sont un taux fictif, choisi pour suivre le budget. | Équipe |
 
-## 8. Prochaines étapes
+## 7. Prochaines étapes
 
 - [ ] Réviser l'ADR-006 après la décision sur les données
 - [ ] Définir le contrat de l'API pour la connexion et les calculs
