@@ -6,7 +6,13 @@ Le client, une entreprise qui installe des panneaux photovoltaïques, veut propo
 
 ## État du projet
 
-Sprint 3 en cours, à partir du 09/11/2026. Le front et l'api sont sur le repertoire.
+Le projet se déroule en **3 sprints**, un par séance de TP de 3 h (06/11, 13/11 et 20/11/2026), soit une capacité de 12 h par sprint pour l'équipe de 4.
+
+- **Sprint 1 (06/11) : terminé.** Initialisation de l'application (Expo) et de l'API (Spring Boot), saisie et fiche de l'installation, tests automatisés du front.
+- **Sprint 2 (13/11) : à venir.** Calculs de l'API (rendement, production, économies, rentabilité), localisation par adresse, consommation, tableau de bord.
+- **Sprint 3 (20/11) : à venir.** Météo et prévision, historique, présentation finale et rétrospective.
+
+Le détail (tickets, heures, budget, vue par sprint) est dans le [Project « Scrum »](https://github.com/users/K-dkh/projects/3).
 
 ## Équipe
 
@@ -38,7 +44,7 @@ Les choix sont justifiés dans les [ADR](Doc/ArchitectureDecisionRecords/ADR-App
 | Document | Contenu |
 |---|---|
 | [Cahier des charges](Doc/CahierDesCharges/cahier-des-charges.md) | Besoins, contraintes et périmètre |
-| [Liste des fonctionnalités](Doc/CahierDesCharges/liste-fonctionnalites.md) | Fonctionnalités, priorités et estimations |
+| [Liste des fonctionnalités](Doc/CahierDesCharges/liste-fonctionnalites.md) | Fonctionnalités, priorités, estimations et répartition par sprint |
 | [Architecture Decision Records](Doc/ArchitectureDecisionRecords/ADR-App-solaire.md) | Décisions techniques et leur justification |
 | [Stratégie de test](Doc/Tests/strategie-de-test.md) | Niveaux de test, outils et Definition of Done |
 | [Plan de test du Sprint 1](Doc/Tests/plan-de-test-sprint-1.md) | Cas de test et valeurs de référence |
@@ -48,7 +54,7 @@ Les choix sont justifiés dans les [ADR](Doc/ArchitectureDecisionRecords/ADR-App
 1. [17/09/2026 : lancement avec le Product Owner](Doc/CompteRenduReunion/compte-rendu-2026-09-17.md)
 2. [05/10/2026 : Sprint 0, cadrage](Doc/CompteRenduReunion/compte-rendu-2026-10-05.md)
 3. [13/10/2026 : réunion avec le Product Owner](Doc/CompteRenduReunion/compte-rendu-2026-10-13.md)
-4. [06/11/2026 : réunion avec le Product Owner](Doc/CompteRenduReunion/compte-rendu-2026-11-06.md)
+4. [06/11/2026 : Sprint 1, séance d'équipe](Doc/CompteRenduReunion/compte-rendu-2026-11-06.md)
 
 ## Organisation du dépôt
 
@@ -56,4 +62,4 @@ Les choix sont justifiés dans les [ADR](Doc/ArchitectureDecisionRecords/ADR-App
 - `Front`, `api` et `back` sont les branches de travail. Elles sont fusionnées dans `main` par pull request.
 - Les commentaires de code et les messages de commit sont en anglais.
 
-Les tests automatiques sont lancés par la chaine CI sur chaque pull request\commit.
+Les tests automatiques sont lancés par GitHub Actions sur chaque pull request et sur `main`.
