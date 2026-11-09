@@ -27,12 +27,16 @@ class ApiExceptionHandler {
     fun handleStatus(ex: ResponseStatusException): ResponseEntity<Map<String, Any?>> =
         body(HttpStatus.valueOf(ex.statusCode.value()), ex.reason, emptyMap())
 
-    private fun body(status: HttpStatus, message: String?, fieldErrors: Map<String, String?>) =
-        ResponseEntity.status(status).body(
-            linkedMapOf<String, Any?>(
-                "status" to status.value(),
-                "message" to message,
-                "fieldErrors" to fieldErrors
-            )
+    private fun body(
+        status: HttpStatus,
+        message: String?,
+        fieldErrors: Map<String, String?>
+    ): ResponseEntity<Map<String, Any?>> {
+        val payload: Map<String, Any?> = linkedMapOf(
+            "status" to status.value(),
+            "message" to message,
+            "fieldErrors" to fieldErrors
         )
+        return ResponseEntity.status(status).body(payload)
+    }
 }
