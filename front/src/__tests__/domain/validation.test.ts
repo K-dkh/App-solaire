@@ -210,3 +210,20 @@ describe('EMPTY_FORM', () => {
     expect(EMPTY_FORM).toMatchObject({ panelType: 'monocrystalline', orientation: 'S', tiltDeg: '30', coordinates: null });
   });
 });
+
+describe('editing an installation (FCT-13)', () => {
+  it('keeps the id and creation date and applies the changes', () => {
+    const original = toInstallation({ ...VALID, coordinates: { latitude: 43.95, longitude: 4.81 } });
+    const edited = toInstallation({ ...toFormValues(original), tiltDeg: '35', costEur: '9 500' }, original);
+    expect(edited.id).toBe(original.id);
+    expect(edited.createdAt).toBe(original.createdAt);
+    expect(edited.tiltDeg).toBe(35);
+    expect(edited.costEur).toBe(9500);
+    expect(edited.coordinates).toEqual({ latitude: 43.95, longitude: 4.81 });
+  });
+
+  it('converts the stored peak power back to kWc for the form', () => {
+    const original = toInstallation({ ...VALID, peakPowerKwc: '3,6' });
+    expect(toFormValues(original).peakPowerKwc).toBe('3,6');
+  });
+});

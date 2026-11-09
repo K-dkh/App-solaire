@@ -35,6 +35,8 @@ const toInput = (n: number) => String(Math.round(n * 100) / 100).replace('.', ',
 export default function InstallationSetupScreen() {
   const router = useRouter();
   const { installation, save } = useInstallation();
+  // FCT-13: the same 3 steps are used to edit an existing installation.
+  const isEditing = installation !== null;
   const [step, setStep] = useState(1);
   const [values, setValues] = useState<InstallationFormValues>(installation ? toFormValues(installation) : EMPTY_FORM);
   const [errors, setErrors] = useState<FormErrors>({});
@@ -106,7 +108,11 @@ export default function InstallationSetupScreen() {
     setSaving(true);
     try {
       await save(toInstallation(values, installation));
-      router.dismissTo('/');
+      if (isEditing && router.canGoBack()) {
+        router.back();
+      } else {
+        router.dismissTo('/');
+      }
     } finally {
       setSaving(false);
     }
@@ -120,7 +126,7 @@ export default function InstallationSetupScreen() {
 
   const footer = (
     <PrimaryButton
-      title={step < STEPS.length ? 'Continuer →' : 'Enregistrer mon installation'}
+      title={step < STEPS.length ? 'Continuer →' : isEditing ? 'Enregistrer les modifications' : 'Enregistrer mon installation'}
       onPress={next}
       loading={saving}
       disabled={step === 1 && values.address.trim() === '' && values.coordinates === null}
@@ -129,7 +135,7 @@ export default function InstallationSetupScreen() {
 
   return (
     <Screen footer={footer}>
-      <BackHeader title="Mon installation" onBack={back} />
+      <BackHeader title={isEditing ? 'Modifier mon installation' : 'Mon installation'} onBack={back} />
       <StepProgress step={step} total={STEPS.length} label={STEPS[step - 1].label} />
 
       {step === 1 ? (
