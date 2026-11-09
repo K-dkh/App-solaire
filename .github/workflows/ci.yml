@@ -43,13 +43,17 @@ jobs:
         run: mvn --batch-mode verify
 
   front-tests:
-    name: Front tests
+    name: Front checks (lint, types, tests)
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: front
     steps:
       - uses: actions/checkout@v4
 
       - name: Report missing project
         if: hashFiles('front/package-lock.json') == ''
+        working-directory: .
         run: echo "::notice::No front/package-lock.json found, tests skipped."
 
       - name: Set up Node.js
@@ -62,10 +66,25 @@ jobs:
 
       - name: Install dependencies
         if: hashFiles('front/package-lock.json') != ''
-        working-directory: front
         run: npm ci
 
-      - name: Run tests
+      - name: Lint
         if: hashFiles('front/package-lock.json') != ''
-        working-directory: front
-        run: npm test -- --ci
+        run: npm run lint
+
+      - name: Type check
+        if: hashFiles('front/package-lock.json') != ''
+        run: npm run typecheck
+
+      # Fails if a test fails or if the coverage drops below the threshold of jest.config.js.
+      - name: Run tests with coverage
+        if: hashFiles('front/package-lock.json') != ''
+        run: npm run test:coverage -- --ci
+
+      - name: Upload coverage report
+        if: always() && hashFiles('front/coverage/lcov-report/index.html') != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: front-coverage
+          path: front/coverage/lcov-report
+          retention-days: 14

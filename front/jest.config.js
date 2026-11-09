@@ -11,4 +11,8 @@ module.exports = {
 
   collectCoverageFrom: ['src/**/*.{ts,tsx}', '!src/__tests__/**', '!src/theme.ts'],
   coverageReporters: ['text', 'text-summary', 'lcov'],
+  // The build fails if the coverage drops below these values (measured at about 95 % in Sprint 1).
+  coverageThreshold: {
+    global: { statements: 90, branches: 85, functions: 85, lines: 90 },
+  },
 };
