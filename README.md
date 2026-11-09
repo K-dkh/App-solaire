@@ -6,11 +6,11 @@ Le client, une entreprise qui installe des panneaux photovoltaïques, veut propo
 
 ## État du projet
 
-Le projet se déroule en **3 sprints**, un par séance de TP de 3 h (06/11, 13/11 et 20/11/2026), soit une capacité de 12 h par sprint pour l'équipe de 4.
+Le projet se déroule en **3 sprints**, un par séance de TP de 3 h, après le lancement (17/09) et le cadrage (Sprint 0, 05/10). Chaque sprint offre 12 h à l'équipe de 4.
 
-- **Sprint 1 (06/11) : terminé.** Initialisation de l'application (Expo) et de l'API (Spring Boot), saisie et fiche de l'installation, tests automatisés du front.
-- **Sprint 2 (13/11) : à venir.** Calculs de l'API (rendement, production, économies, rentabilité), localisation par adresse, consommation, tableau de bord.
-- **Sprint 3 (20/11) : à venir.** Météo et prévision, historique, présentation finale et rétrospective.
+- **Sprint 1 (13/10) : terminé.** Réunion avec le PO, cahier des charges v0.2, ADR, validation de la maquette.
+- **Sprint 2 (06/11) : terminé.** Backlog et tickets, stratégie et plan de test, initialisation de l'application (Expo) et de l'API (Spring Boot).
+- **Sprint 3 (09/11) : en cours, dernière séance.** Saisie et fiche de l'installation (front et API), tests automatisés du front, replanification, présentation finale et rétrospective.
 
 Le détail (tickets, heures, budget, vue par sprint) est dans le [Project « Scrum »](https://github.com/users/K-dkh/projects/3).
 
