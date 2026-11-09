@@ -18,10 +18,14 @@ On a phone, `EXPO_PUBLIC_API_URL` must use the computer's local IP address
 ## Checks (run before every pull request)
 
 ```bash
-npm run typecheck   # TypeScript
-npx expo lint       # ESLint
-npm test            # Jest unit tests
+npm run typecheck       # TypeScript
+npm run lint            # ESLint
+npm test                # Jest tests
+npm run test:coverage   # Jest tests with the coverage report (coverage/)
 ```
+
+The same checks run on every pull request (GitHub Actions, job "Front checks").
+The build fails if the coverage drops below the threshold set in `jest.config.js`.
 
 ## Structure
 
@@ -37,7 +41,8 @@ src/
   hooks/useCalculations   Calls the API for production, savings and payback
   services/api.ts         HTTP client of the Spring API
   storage/                Local storage of the client's data (ADR-006)
-  __tests__/              Jest unit tests
+  __tests__/              Jest tests, organised like src/ (see Doc/Tests/strategie-de-test.md)
+    helpers/              Test data and renderApp(), which starts the whole app with mocked API
 ```
 
 ## Design decisions
