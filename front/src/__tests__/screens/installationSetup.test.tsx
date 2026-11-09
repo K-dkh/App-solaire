@@ -223,9 +223,10 @@ describe('Installation setup (FCT-10, FCT-11, FCT-12)', () => {
       await user.press(continueButton());
       await user.clear(await screen.findByLabelText("Coût d'installation (€)"));
       await user.type(field("Coût d'installation (€)"), '10000');
-      await user.press(screen.getByRole('button', { name: 'Enregistrer mon installation' }));
+      await user.press(screen.getByRole('button', { name: 'Enregistrer les modifications' }));
 
-      await screen.findByText('9 000 € investis (aides déduites)');
+      expect(await screen.findByText('Investissement net')).toBeOnTheScreen();
+      expect(screen).toHavePathname('/installation');
       const updated = await loadInstallation();
       expect(updated).toMatchObject({ id: saved.id, createdAt: saved.createdAt, costEur: 10000 });
     });
