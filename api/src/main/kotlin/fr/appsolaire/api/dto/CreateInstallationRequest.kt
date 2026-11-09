@@ -7,6 +7,7 @@ import jakarta.validation.constraints.Min
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Pattern
 import jakarta.validation.constraints.Positive
+import jakarta.validation.constraints.PositiveOrZero
 import jakarta.validation.constraints.Size
 
 /**
@@ -58,5 +59,18 @@ data class CreateInstallationRequest(
     @field:NotNull(message = "L'inclinaison est obligatoire")
     @field:Min(value = 0, message = "L'inclinaison doit être comprise entre 0 et 90°")
     @field:Max(value = 90, message = "L'inclinaison doit être comprise entre 0 et 90°")
-    val tiltDeg: Int?
+    val tiltDeg: Int?,
+
+    @field:NotNull(message = "Le coût de l'installation est obligatoire")
+    @field:Positive(message = "Le coût (€) doit être strictement positif")
+    val costEur: Double?,
+
+    /** Optional: missing means no subsidies. Must not exceed the cost (checked in the service). */
+    @field:PositiveOrZero(message = "Le montant des aides ne peut pas être négatif")
+    val subsidiesEur: Double? = null,
+
+    @field:NotNull(message = "Le prix du kWh est obligatoire")
+    @field:Positive(message = "Le prix du kWh (€/kWh) doit être strictement positif")
+    @field:DecimalMax(value = "5", message = "Le prix du kWh doit être inférieur ou égal à 5 €")
+    val electricityPriceEurPerKwh: Double?
 )
