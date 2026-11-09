@@ -8,6 +8,21 @@ export const API_URL = process.env.EXPO_PUBLIC_API_URL ?? 'http://localhost:8080
 
 const TIMEOUT_MS = 5000;
 
+// TODO(FCT-02): replace this temporary header with the JWT once login exists.
+const DEV_USER_ID = process.env.EXPO_PUBLIC_DEV_USER_ID ?? '1';
+
+/** Error answered by the API: carries the HTTP status and the per-field messages (HTTP 400). */
+export class ApiError extends Error {
+  readonly status: number;
+  readonly fieldErrors: Record<string, string>;
+
+  constructor(status: number, message: string, fieldErrors: Record<string, string> = {}) {
+    super(message);
+    this.status = status;
+    this.fieldErrors = fieldErrors;
+  }
+}
+
 /** Results the dashboard expects from the API (FCT-31, FCT-42, FCT-43). */
 export interface CalculationResult {
   yieldPct: number | null;
@@ -59,6 +74,55 @@ export async function fetchCalculations(installation: Installation): Promise<Cal
       annualSavingsEur: data.annualSavingsEur ?? null,
       paybackYears: data.paybackYears ?? null,
     };
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+/** Request body of POST /api/v1/installations (FCT-07, FCT-08, FCT-10). */
+export function toInstallationRequest(installation: Installation) {
+  return {
+    name: installation.name,
+    latitude: installation.coordinates?.latitude ?? null,
+    longitude: installation.coordinates?.longitude ?? null,
+    panelType: installation.panelType,
+    panelCount: installation.panelCount,
+    peakPowerWc: installation.peakPowerWc,
+    surfaceM2: installation.surfaceM2,
+    orientation: installation.orientation,
+    tiltDeg: Math.round(installation.tiltDeg),
+    costEur: installation.costEur,
+    subsidiesEur: installation.subsidiesEur,
+    electricityPriceEurPerKwh: installation.electricityPriceEurPerKwh,
+  };
+}
+
+/**
+ * Saves the installation on the server. Throws an ApiError when the API answers with an
+ * error (400: invalid data, 401: not authenticated), and any other error when it is unreachable.
+ */
+export async function createInstallation(installation: Installation): Promise<{ id: number }> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
+  try {
+    const response = await fetch(`${API_URL}/api/v1/installations`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-User-Id': DEV_USER_ID },
+      body: JSON.stringify(toInstallationRequest(installation)),
+      signal: controller.signal,
+    });
+    if (!response.ok) {
+      const body = (await response.json().catch(() => null)) as {
+        message?: string;
+        fieldErrors?: Record<string, string>;
+      } | null;
+      throw new ApiError(
+        response.status,
+        body?.message ?? `L'API a répondu avec le statut ${response.status}`,
+        body?.fieldErrors ?? {},
+      );
+    }
+    return (await response.json()) as { id: number };
   } finally {
     clearTimeout(timer);
   }
