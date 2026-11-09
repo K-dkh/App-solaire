@@ -30,6 +30,9 @@ class InstallationService(private val installationRepository: InstallationReposi
             )
         )
 
+    fun listerPourUtilisateur(utilisateurId: Long): List<Installation> =
+        installationRepository.findByUtilisateurId(utilisateurId)
+
     companion object {
         /** 2 decimals of a degree is about 1.1 km of latitude. */
         fun roundToAboutOneKm(degrees: Double): Double =

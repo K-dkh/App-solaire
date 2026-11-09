@@ -7,6 +7,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.springframework.web.server.ResponseStatusException
+import fr.appsolaire.api.service.EmailDejaUtiliseException
+import fr.appsolaire.api.service.IdentifiantsInvalidesException
 
 /** Returns clear, uniform JSON errors: {"status", "message", "fieldErrors"}. */
 @RestControllerAdvice
@@ -26,6 +28,15 @@ class ApiExceptionHandler {
     @ExceptionHandler(ResponseStatusException::class)
     fun handleStatus(ex: ResponseStatusException): ResponseEntity<Map<String, Any?>> =
         body(HttpStatus.valueOf(ex.statusCode.value()), ex.reason, emptyMap())
+
+
+    @ExceptionHandler(IdentifiantsInvalidesException::class)
+    fun handleIdentifiants(ex: IdentifiantsInvalidesException): ResponseEntity<Map<String, Any?>> =
+        body(HttpStatus.UNAUTHORIZED, ex.message, emptyMap())
+
+    @ExceptionHandler(EmailDejaUtiliseException::class)
+    fun handleEmailDejaUtilise(ex: EmailDejaUtiliseException): ResponseEntity<Map<String, Any?>> =
+        body(HttpStatus.CONFLICT, ex.message, emptyMap())
 
     private fun body(
         status: HttpStatus,
