@@ -6,7 +6,7 @@
 - **Date :** 06/11/2026
 - **Responsable :** Téo (Tests & doc)
 - **Source :** critères d'acceptation des 11 tickets du Sprint 1, [liste des fonctionnalités v0.5](../CahierDesCharges/liste-fonctionnalites.md)
-- **Exécution :** aucun cas n'a encore été exécuté, car le code n'existe pas encore
+- **Exécution :** cas automatisés côté front exécutés le 09/11/2026 (section 4) ; cas d'API et de recette pas encore exécutés
 
 **Niveaux :** U = unitaire, I = intégration, R = recette manuelle (voir la [stratégie de test](strategie-de-test.md)).
 
@@ -170,3 +170,27 @@ Installation de test : 8 panneaux de 400 Wc, soit **3,2 kWc**.
 | TC-24-02 | U | Calculer avec 9000 € et 800 €/an | 11 ans et 3 mois |
 | TC-24-03 | U | Calculer avec des économies nulles | Pas d'erreur, résultat « non calculable » |
 | TC-24-04 | R | Consulter le délai dans l'application | La valeur s'affiche en années et en mois |
+
+## 4. Exécution côté front (09/11/2026)
+
+Les tests Jest du front citent ces identifiants. Tous passent.
+
+| Cas | Test automatique | Résultat |
+|---|---|---|
+| TC-07-02, TC-07-03, TC-07-04 | `domain/validation.test.ts`, `screens/installationSetup.test.tsx` | Réussi |
+| TC-07-05 | `storage/installationStorage.test.ts`, `context/InstallationContext.test.tsx`, `screens/installationSetup.test.tsx` | Réussi |
+| TC-08-01, TC-08-02 (GPS simulé) | `screens/installationSetup.test.tsx` | Réussi |
+| TC-10-02, TC-10-03 | `domain/validation.test.ts`, `screens/installationSetup.test.tsx` | Réussi |
+| TC-12-01, TC-12-02, TC-12-03 | `screens/installationSheet.test.tsx` | Réussi |
+| TC-17-01, TC-17-02, TC-17-03 (calcul local du rendement) | `domain/calculations.test.ts` | Réussi |
+| TC-24-01, TC-24-02 (affichage du délai) | `domain/calculations.test.ts` | Réussi |
+
+Les calculs de production, d'économies et de délai (FCT-18, FCT-23, FCT-24) sont faits par l'API : leurs cas seront vérifiés par les tests JUnit.
+
+### Anomalies relevées
+
+| # | Anomalie | Gravité |
+|---|---|---|
+| 1 | Si l'écran de saisie est ouvert directement au démarrage (rechargement de la page web sur `/installation/setup`), le formulaire reste vide au lieu de reprendre l'installation enregistrée : il est initialisé avant la fin de la lecture du stockage. Le parcours normal, depuis la fiche, fonctionne. | Mineure |
+| 2 | Les icônes des boutons font partie de leur nom accessible : un lecteur d'écran lit un caractère parasite avant le libellé. | Mineure |
+| 3 | `expo-font` et `expo-asset` n'étaient pas installés directement : risque de plantage hors d'Expo Go. Corrigé dans la même branche. | Corrigée |

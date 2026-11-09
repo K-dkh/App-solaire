@@ -30,7 +30,9 @@
         {
           "locationWhenInUsePermission": "App-solaire utilise votre position pour localiser votre installation (arrondie à environ 1 km)."
         }
-      ]
+      ],
+      "expo-font",
+      "expo-asset"
     ],
     "scheme": "appsolaire"
   }
