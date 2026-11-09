@@ -6,7 +6,7 @@ import {
   formatYearsAndMonths,
   parseFrenchNumber,
   roundCoordinates,
-} from '../domain/calculations';
+} from '../../domain/calculations';
 
 describe('computeYieldPct (FCT-30)', () => {
   it('computes the yield of a 400 Wc panel on 1.9 m²', () => {

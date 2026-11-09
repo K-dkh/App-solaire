@@ -1,7 +1,7 @@
 import { describe, expect, it } from '@jest/globals';
 
-import type { InstallationFormValues } from '../domain/types';
-import { EMPTY_FORM, toFormValues, toInstallation, validateInstallation } from '../domain/validation';
+import type { InstallationFormValues } from '../../domain/types';
+import { EMPTY_FORM, toFormValues, toInstallation, validateInstallation } from '../../domain/validation';
 
 const VALID: InstallationFormValues = {
   ...EMPTY_FORM,
