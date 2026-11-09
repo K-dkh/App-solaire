@@ -4,18 +4,15 @@
 - **UCE :** Processus du développement logiciel (Master ILSEN, S1)
 - **Date :** 09/11/2026
 - **Type :** Séance de TP, fin du Sprint 3, démo au Product Owner
-- **Participants :** Sheinez, Malikath, Dédé, Téo, et l'enseignant (Product Owner)
+- **Participants :** l'équipe et l'enseignant (Product Owner)
 - **Rédacteur :** Téo
 
 ---
 
 ## 1. Suivi des actions du compte rendu n°4
 
-- [ ] Donner à l'enseignant l'accès au Project « Scrum » (Dédé) : **à confirmer**
 - [x] Assigner les tickets du Sprint 1 (Tous)
-- [ ] Valider la Definition of Done (Tous) : **à confirmer**
 - [x] Confirmer les noms des dossiers du code : `front/` et `api/`. La CI ne lance pas encore les tests de l'API, qui utilise Gradle et pas Maven ([#45](https://github.com/K-dkh/App-solaire/issues/45)).
-- [x] Poser au PO les questions de la section 5 : réponses en section 3
 - [x] Adapter le contenu des sprints : replanification en section 2.4
 
 ## 2. Travail réalisé pendant le Sprint 3
@@ -50,7 +47,7 @@
 
 ## 3. Échanges avec le PO
 
-- **Démo du Sprint 3 :** saisie de l'installation en 3 étapes, fiche, écran d'accueil avec le rendement, tests automatiques. **Le PO est satisfait.**
+- **Démo du Sprint 3 :** le PO est satisfait.
 - **Nouvelle demande :** ajouter une **page de connexion sécurisée**.
 - **Suite du projet :** relier l'application à l'API, puis finaliser le projet au Sprint 4, qui est le sprint final.
 
@@ -67,11 +64,11 @@
 
 ## 5. Bilan des heures et du budget
 
-| Sprint | Séance | Heures passées | Coût (40 €/h) |
+| Sprint | Séance | Heures saisies | Coût (40 €/h) |
 |---|---|---:|---:|
 | Sprint 1 | 13/10 | 12 h | 480 € |
 | Sprint 2 | 06/11 | 12 h | 480 € |
-| Sprint 3 | 09/11 | 9 h, plus le temps de Sheinez (à compléter) | 360 € |
+| Sprint 3 | 09/11 | 9 h | 360 € |
 | **Total** | | **33 h** | **1 320 €** |
 
 - **Capacité des 4 sprints :** 48 h, soit 1 920 €. Il reste 12 h pour le Sprint 4.
@@ -81,17 +78,17 @@
 
 Capacité : 12 h, soit 4 personnes × 3 h. Le travail restant est estimé à **12 h**.
 
-| Ticket | Contenu | Reste (h) | Responsable proposé |
-|---|---|---:|---|
-| [#5](https://github.com/K-dkh/App-solaire/issues/5) FCT-01 | Créer un compte (mot de passe haché, consentement RGPD) | 1,5 | Malikath, Dédé |
-| [#6](https://github.com/K-dkh/App-solaire/issues/6) FCT-02 | Page de connexion sécurisée, déconnexion | 2 | Malikath, Dédé |
-| [#50](https://github.com/K-dkh/App-solaire/issues/50) S4-01 | Relier le front à l'API : installations, calculs, jeton de connexion | 1,5 | Dédé, Malikath |
-| [#21](https://github.com/K-dkh/App-solaire/issues/21), [#22](https://github.com/K-dkh/App-solaire/issues/22), [#27](https://github.com/K-dkh/App-solaire/issues/27), [#28](https://github.com/K-dkh/App-solaire/issues/28) | Calculs de l'API : rendement, production, économies, délai de rentabilité | 2,5 | Sheinez |
-| [#29](https://github.com/K-dkh/App-solaire/issues/29) FCT-25 | Tableau de bord alimenté par l'API | 0,5 | Dédé |
-| [#45](https://github.com/K-dkh/App-solaire/issues/45) | Lancer les tests de l'API dans la CI | 0,5 | Téo |
-| [#48](https://github.com/K-dkh/App-solaire/issues/48) | Présentation finale, rétrospective, rendu | 2,5 | Tous |
-| [#51](https://github.com/K-dkh/App-solaire/issues/51) SP4 | Pilotage : démo PO, CR n°6, tableau, révision de l'ADR-006, export | 1 | Téo |
-| | **Total** | **12** | |
+| Ticket | Contenu | Reste (h) |
+|---|---|---:|
+| [#5](https://github.com/K-dkh/App-solaire/issues/5) FCT-01 | Créer un compte (mot de passe haché, consentement RGPD) | 1,5 |
+| [#6](https://github.com/K-dkh/App-solaire/issues/6) FCT-02 | Page de connexion sécurisée, déconnexion | 2 |
+| [#50](https://github.com/K-dkh/App-solaire/issues/50) S4-01 | Relier le front à l'API : installations, calculs, jeton de connexion | 1,5 |
+| [#21](https://github.com/K-dkh/App-solaire/issues/21), [#22](https://github.com/K-dkh/App-solaire/issues/22), [#27](https://github.com/K-dkh/App-solaire/issues/27), [#28](https://github.com/K-dkh/App-solaire/issues/28) | Calculs de l'API : rendement, production, économies, délai de rentabilité | 2,5 |
+| [#29](https://github.com/K-dkh/App-solaire/issues/29) FCT-25 | Tableau de bord alimenté par l'API | 0,5 |
+| [#45](https://github.com/K-dkh/App-solaire/issues/45) | Lancer les tests de l'API dans la CI | 0,5 |
+| [#48](https://github.com/K-dkh/App-solaire/issues/48) | Présentation finale, rétrospective, rendu | 2,5 |
+| [#51](https://github.com/K-dkh/App-solaire/issues/51) SP4 | Pilotage : démo PO, CR n°6, tableau, révision de l'ADR-006, export | 1 |
+| | **Total** | **12** |
 
 ## 7. Points à clarifier
 
@@ -104,8 +101,6 @@ Capacité : 12 h, soit 4 personnes × 3 h. Le travail restant est estimé à **1
 
 ## 8. Prochaines étapes
 
-- [ ] Compléter les heures de Sheinez au Sprint 3 dans le tableau (Sheinez)
-- [ ] Donner à l'enseignant l'accès au Project « Scrum », ou en préparer un export (Dédé, Téo)
-- [ ] Réviser l'ADR-006 après la décision sur les données (Téo)
-- [ ] Préparer le contrat de l'API pour la connexion et les calculs, documenté dans le Swagger (Sheinez, Malikath)
-- [ ] Préparer la trame de la présentation finale et de la rétrospective (Tous)
+- [ ] Réviser l'ADR-006 après la décision sur les données
+- [ ] Définir le contrat de l'API pour la connexion et les calculs
+- [ ] Préparer la présentation finale et la rétrospective
